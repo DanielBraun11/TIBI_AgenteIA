@@ -1,6 +1,6 @@
 # 🧪 Batería Completa de Casos de Prueba Reales (Guía de Demo TFG)
 
-Este documento reúne **todos los escenarios de uso posibles** del sistema multi-agente **TIBI**, con registros reales extraídos de los ficheros `ficheros/cliente_credencial 1.csv` y `ficheros/servicios_cliente 1.csv` (10.000 filas). Está diseñado como **chuleta rápida de demostración en vivo** ante el tribunal para no tener que buscar datos en los CSV durante la defensa.
+Este documento reúne **todos los escenarios de uso posibles** del sistema multi-agente **TIBI**, con registros reales extraídos de los ficheros `ficheros/cliente_credencial 1.csv` y `ficheros/usuarios_servicios.csv` (10.000 filas). Está diseñado como **chuleta rápida de demostración en vivo** ante el tribunal para no tener que buscar datos en los CSV durante la defensa.
 
 ---
 
@@ -8,7 +8,7 @@ Este documento reúne **todos los escenarios de uso posibles** del sistema multi
 
 Estos 5 clientes reales cubren **todas las combinaciones posibles** de servicios contratados y no contratados:
 
-| Perfil para la Demo | DNI (`cliente_credencial 1.csv`) | Teléfono / Login | Contraseña Actual | Servicios Activos (`servicios_cliente 1.csv`) | Servicios NO Contratados |
+| Perfil para la Demo | DNI (`cliente_credencial 1.csv`) | Teléfono / Login | Contraseña Actual | Servicios Activos (`usuarios_servicios.csv`) | Servicios NO Contratados |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Cliente VIP (Todo contratado)** | `24942603T` | `914942603` | `3jg5wrlKYM` | ✅ **NETFLIX**, ✅ **HBO**, ✅ **PRIME** | *(Ninguno, tiene los 3)* |
 | **Cliente Solo Netflix** | `95822412L` | `985822412` | `FRhafSoX8u` | ✅ **NETFLIX** | ❌ HBO, ❌ PRIME |
@@ -36,7 +36,7 @@ Estos 5 clientes reales cubren **todas las combinaciones posibles** de servicios
 
 | ID | Escenario de Prueba | Datos de Entrada | Mensaje Exacto para Copiar y Pegar en el Chat | Agente y Tools Invocadas | Resultado Esperado en la Demo |
 | :---: | :--- | :--- | :--- | :--- | :--- |
-| **04** | **Cliente SÍ tiene HBO y reporta caída del servicio** | **DNI:** `24942603T`<br/>**SVA:** `HBO` *(Activo)* | `"Hola, tengo contratado HBO pero al abrir la aplicación en el decodificador se queda la pantalla en negro con error de carga. Mi DNI es 24942603T"` | `agente_servicios`<br/>1️⃣ `verificar_servicio_cliente()`<br/>2️⃣ `llamar_excalibur()` | ✅ Comprueba en `servicios_cliente 1.csv` que `24942603T` tiene `HBO`, escala el caso a Nivel 2 creando **`excalibur_calls/excalibur_YYYYMMDD_HHMMSS_24942603T.txt`** y confirma el ticket al usuario. |
+| **04** | **Cliente SÍ tiene HBO y reporta caída del servicio** | **DNI:** `24942603T`<br/>**SVA:** `HBO` *(Activo)* | `"Hola, tengo contratado HBO pero al abrir la aplicación en el decodificador se queda la pantalla en negro con error de carga. Mi DNI es 24942603T"` | `agente_servicios`<br/>1️⃣ `verificar_servicio_cliente()`<br/>2️⃣ `llamar_excalibur()` | ✅ Comprueba en `usuarios_servicios.csv` que `24942603T` tiene `HBO`, escala el caso a Nivel 2 creando **`excalibur_calls/excalibur_YYYYMMDD_HHMMSS_24942603T.txt`** y confirma el ticket al usuario. |
 | **05** | **Cliente SÍ tiene Netflix y reporta error de reproducción** | **DNI:** `13356886G`<br/>**SVA:** `NETFLIX` *(Activo)* | `"No me funciona Netflix en MasOrange TV, se corta el vídeo al 24% todo el rato. Mi DNI es 13356886G"` | `agente_servicios`<br/>1️⃣ `verificar_servicio_cliente()`<br/>2️⃣ `llamar_excalibur()` | ✅ Verifica que `13356886G` tiene `NETFLIX` activo, genera el fichero de incidencia en **`excalibur_calls/`** y notifica al cliente que el equipo técnico Excalibur lo está resolviendo. |
 | **06** | **Cliente SÍ tiene Prime Video y reporta fallo de vinculación** | **DNI:** `83197857A`<br/>**SVA:** `PRIME` *(Activo)* | `"Intento entrar en Prime Video desde el deco y me sale error de cuenta no vinculada. Mi DNI es 83197857A"` | `agente_servicios`<br/>1️⃣ `verificar_servicio_cliente()`<br/>2️⃣ `llamar_excalibur()` | ✅ Verifica que `83197857A` tiene `PRIME` activo, registra el ticket `.txt` en **`excalibur_calls/`** y confirma la gestión. |
 
@@ -48,7 +48,7 @@ Estos 5 clientes reales cubren **todas las combinaciones posibles** de servicios
 
 | ID | Escenario de Prueba | Datos de Entrada | Mensaje Exacto para Copiar y Pegar en el Chat | Agente y Tool Invocada | Resultado Esperado en la Demo |
 | :---: | :--- | :--- | :--- | :--- | :--- |
-| **07** | **Cliente reclama por Netflix pero NO tiene Netflix contratado** | **DNI:** `83197857A`<br/>*(Solo tiene PRIME)* | `"Hola, no puedo ver Netflix en mi televisión, me pide suscribirme. Mi DNI es 83197857A"` | `agente_servicios`<br/>1️⃣ `verificar_servicio_cliente()`<br/>*(No invoca Excalibur)* | ❌ Detecta en `servicios_cliente 1.csv` que el DNI `83197857A` **no tiene Netflix contratado** (solo Prime). Informa amablemente al cliente y **NO genera ticket en `excalibur_calls/`**. |
+| **07** | **Cliente reclama por Netflix pero NO tiene Netflix contratado** | **DNI:** `83197857A`<br/>*(Solo tiene PRIME)* | `"Hola, no puedo ver Netflix en mi televisión, me pide suscribirme. Mi DNI es 83197857A"` | `agente_servicios`<br/>1️⃣ `verificar_servicio_cliente()`<br/>*(No invoca Excalibur)* | ❌ Detecta en `usuarios_servicios.csv` que el DNI `83197857A` **no tiene Netflix contratado** (solo Prime). Informa amablemente al cliente y **NO genera ticket en `excalibur_calls/`**. |
 | **08** | **Cliente reclama por HBO pero NO tiene HBO contratado** | **DNI:** `95822412L`<br/>*(Solo tiene NETFLIX)* | `"No me deja entrar en HBO Max desde el menú de la tele. Mi DNI es 95822412L"` | `agente_servicios`<br/>1️⃣ `verificar_servicio_cliente()`<br/>*(No invoca Excalibur)* | ❌ Comprueba que `95822412L` **no tiene HBO activo** en su contrato. Deniega el escalado técnico y le sugiere contratar el paquete en su área de cliente. |
 | **09** | **Cliente reclama por Prime Video pero NO tiene Prime contratado** | **DNI:** `13356886G`<br/>*(Tiene NETFLIX y HBO, pero NO PRIME)* | `"Amazon Prime Video me da error de acceso en MasOrange TV. Mi DNI es 13356886G"` | `agente_servicios`<br/>1️⃣ `verificar_servicio_cliente()`<br/>*(No invoca Excalibur)* | ❌ Verifica que `13356886G` tiene Netflix y HBO, pero **no Prime Video**. Informa al cliente sin abrir incidencia en Excalibur. |
 

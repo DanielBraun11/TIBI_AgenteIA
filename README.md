@@ -17,7 +17,7 @@
 | :--- | :--- | :--- |
 | **Separación de Responsabilidades (*SoC*)** | División estricta en 4 capas independientes: Presentación (`static/`), API (`server.py`), Cognitiva (`app/`) y Datos/Herramientas (`tools/` + `ficheros/`). | Permite sustituir la base de datos (CSV $\rightarrow$ SQL/BigQuery) o el frontend sin tocar una sola línea de los agentes de IA. |
 | **Orquestación Jerárquica Multi-Agente** | Un agente raíz (`agente_principal`) actúa como *router* semántico y cortafuegos, delegando en dos sub-agentes especialistas (`agente_contrasena` y `agente_servicios`). | Reduce drásticamente las alucinaciones del LLM al acotar el contexto y las herramientas (*tools*) visibles por cada sub-agente. |
-| **Cero Acceso Directo del LLM al Dato (*Deterministic Tooling*)** | Los agentes no leen ni editan los CSV libremente; invocan funciones Python tipadas (`tools/tools.py`) que validan credenciales, mutan datos de forma atómica y generan contraseñas con entropía criptográfica (`secrets`). | Garantiza integridad transaccional y evita fugas de datos o corrupciones en la base de datos de clientes. |
+| **Cero Acceso Directo del LLM al Dato (*Deterministic Tooling*)** | Los agentes no leen ni editan los CSV libremente; invocan funciones Python tipadas (`tools/csv_tools.py` y `tools/excalibur_tools.py`) que validan credenciales, mutan datos de forma atómica y generan contraseñas con entropía criptográfica (`secrets`). | Garantiza integridad transaccional y evita fugas de datos o corrupciones en la base de datos de clientes. |
 | **Auditoría y Escalado (*Human-in-the-Loop*)** | Generación automática de tickets persistentes en `excalibur_calls/` y logs estructurados en `logs/`. | Cumple con los estándares reales de teleco donde toda incidencia de Nivel 2 deja un rastro auditable de quién solicitó qué y cuándo. |
 | **Agnosticismo del Proveedor LLM** | Detección dinámica en `app/agent.py` entre **Google Gemini** (nativo ADK), **Groq (Llama 3.3 70B)** y **Anthropic Claude** (LiteLLM). | Permite ejecutar el proyecto **100% gratis** en cualquier portátil personal sin depender de redes corporativas ni tarjetas bancarias. |
 
@@ -49,9 +49,9 @@ flowchart TB
         T2["🛠️ verificar_servicio_cliente()<br/>Validación de contrato activo"]
         T3["🛠️ llamar_excalibur()<br/>Escalado automático a Nivel 2"]
         CSV1[("🗄️ ficheros/cliente_credencial 1.csv<br/>10.000 clientes (DNI, Teléfono, Password)")]
-        CSV2[("🗄️ ficheros/servicios_cliente 1.csv<br/>Servicios contratados por DNI")]
+        CSV2[("🗄️ ficheros/usuarios_servicios.csv<br/>Servicios contratados por DNI")]
         EXC[("📄 excalibur_calls/*.txt<br/>Almacén de Tickets de Incidencia")]
-        LOGS[("📋 logs/server.log & tools.log<br/>Trazabilidad técnica completa")]
+        LOGS[("📋 logs/*.log<br/>Trazabilidad por agente y herramienta")]
     end
 
     UI <-->|"JSON (mensaje + session_id)"| API
@@ -92,7 +92,7 @@ flowchart TD
     ROOT -->|"Fallo en Plataforma SVA<br/>(Netflix, HBO o Prime Video)"| SVA_AGENT["📡 Sub-Agente: agente_servicios"]
     SVA_AGENT --> ASK_SVA["Solicita DNI + Plataforma afectada + Síntoma"]
     ASK_SVA --> CALL_T2["Ejecuta: verificar_servicio_cliente(dni, servicio)"]
-    CALL_T2 --> CHECK_SVA{"¿Tiene el servicio activo<br/>en servicios_cliente 1.csv?"}
+    CALL_T2 --> CHECK_SVA{"¿Tiene el servicio activo<br/>en usuarios_servicios.csv?"}
     CHECK_SVA -->|"❌ No contratado"| ERR_SVA["Informa que el servicio no figura activo<br/>y sugiere contratarlo en MasOrange"]
     CHECK_SVA -->|"✅ Contratado"| CALL_T3["Ejecuta: llamar_excalibur(dni, servicio, problema)<br/>Crea ticket en excalibur_calls/*.txt<br/>y confirma apertura de incidencia"]
 ```
@@ -109,19 +109,23 @@ TIBI_AgenteIA/
 │   └── agent.py                      # Definición de los 3 agentes (Prompts, Modelos y Orquestación)
 │
 ├── tools/                            # 🛠️ CAPA DE LÓGICA DE NEGOCIO (Tool Calling)
-│   ├── __init__.py                   # Exporta las herramientas autorizadas
-│   └── tools.py                      # Funciones Python que leen/escriben los CSV y generan tickets
+│   ├── __init__.py                   # Exporta las herramientas autorizadas a los agentes
+│   ├── csv_tools.py                  # Validación de credenciales, cambio de password y consulta SVA
+│   └── excalibur_tools.py            # Generación y persistencia de tickets Nivel 2 (.txt)
 │
 ├── ficheros/                         # 🗄️ CAPA DE DATOS (Simulación de BBDD en Local)
 │   ├── cliente_credencial 1.csv      # 10.000 registros de usuarios (DNI, login telefónico, contraseña)
-│   └── servicios_cliente 1.csv       # Matriz de servicios SVA contratados por cada DNI
+│   └── usuarios_servicios.csv        # Matriz de servicios SVA contratados por cada DNI
 │
 ├── excalibur_calls/                  # 📄 AUDITORÍA DE INCIDENCIAS (Tickets Nivel 2)
 │   └── excalibur_YYYYMMDD_HHMMSS_DNI.txt  # Ficheros generados automáticamente al escalar fallos SVA
 │
-├── logs/                             # 📋 TRAZABILIDAD TÉCNICA
+├── logs/                             # 📋 TRAZABILIDAD TÉCNICA POR COMPONENTE
 │   ├── server.log                    # Registro de peticiones HTTP, sesiones y latencias
-│   └── tools.log                     # Registro de llamadas a herramientas y cambios en CSV
+│   ├── agente_principal.log          # Decisiones de enrutamiento del agente padre
+│   ├── agente_contrasena.log         # Trazas del sub-agente de credenciales
+│   ├── agente_servicios.log          # Trazas del sub-agente de SVA
+│   └── csv_tools.log                 # Registro de lecturas y mutaciones en los CSV
 │
 ├── static/                           # 🖥️ CAPA DE PRESENTACIÓN (Frontend)
 │   ├── tv.html                       # Interfaz SPA de MasOrange TV + Widget conversacional TIBI
