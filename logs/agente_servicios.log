@@ -1,0 +1,5 @@
+2026-10-21 13:06:56 | DEBUG    | tv_agent.servicios | ⚡ [TOOL CALL] comprobar_servicio  args={'dni': '24942603T', 'servicio': 'NETFLIX'}
+2026-10-21 13:06:56 | DEBUG    | tv_agent.servicios | ✅ [TOOL DONE] comprobar_servicio  result=SERVICIO_ACTIVO: El cliente con DNI=24942603T SÍ tiene contratado el servicio NETFLIX. Puedes proceder a gestionar la incidencia.
+2026-10-21 13:06:59 | DEBUG    | tv_agent.servicios | ⚡ [TOOL CALL] llamar_excalibur  args={'dni': '24942603T', 'login': '914942603', 'servicio': 'NETFLIX'}
+2026-10-21 13:06:59 | INFO     | tv_agent.excalibur | [llamar_excalibur] Ticket EXC-20261021-603T-NET generado. Fichero: C:\Users\daniel.braun\development\TIBI_AgenteIA\excalibur_calls\excalibur_20261021_130659_24942603T.txt
+2026-10-21 13:06:59 | DEBUG    | tv_agent.servicios | ✅ [TOOL DONE] llamar_excalibur  result=EXCALIBUR_OK: La incidencia ha sido registrada en la plataforma Excalibur. Número de ticket: **EXC-20261021-603T-NET**. El equipo técnico revisará el acceso al servicio NETFLIX en un plazo máximo de 2

@@ -1,0 +1,758 @@
+<title>TIBI — Guía de instalación</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  /* ─── Design tokens ──────────────────────────────────────────
+     Layout: single max-width column, section-by-section flow
+     Color: MasOrange brand orange + warm near-blacks
+     Type: Outfit (display, headings) + Source Sans 3 (body)
+  ─────────────────────────────────────────────────────────── */
+  :root {
+    --orange:      #FF5C00;
+    --orange-soft: #FF7A2E;
+    --orange-dim:  rgba(255,92,0,.10);
+    --orange-line: rgba(255,92,0,.25);
+
+    --bg:       #F7F5F2;
+    --surface:  #FFFFFF;
+    --border:   rgba(0,0,0,.08);
+    --text:     #1A1715;
+    --muted:    #6B6560;
+    --code-bg:  #1E1B18;
+    --code-fg:  #E8DDD5;
+
+    --r: 10px;
+    --gap: 28px;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:       #141210;
+      --surface:  #1E1B18;
+      --border:   rgba(255,255,255,.08);
+      --text:     #EDE8E3;
+      --muted:    #9A9490;
+      --code-bg:  #0E0C0A;
+      --code-fg:  #E8DDD5;
+      --orange-dim: rgba(255,92,0,.15);
+      --orange-line: rgba(255,92,0,.30);
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg:       #141210;
+    --surface:  #1E1B18;
+    --border:   rgba(255,255,255,.08);
+    --text:     #EDE8E3;
+    --muted:    #9A9490;
+    --code-bg:  #0E0C0A;
+    --code-fg:  #E8DDD5;
+    --orange-dim: rgba(255,92,0,.15);
+    --orange-line: rgba(255,92,0,.30);
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ─── Header ─────────────────────────────────────────────── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 52px;
+  }
+
+  .header-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--orange);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .header-text h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+  }
+
+  .header-text h1 span { color: var(--orange); }
+
+  .header-text p {
+    color: var(--muted);
+    font-size: .95rem;
+    margin-top: 4px;
+  }
+
+  /* ─── Quick-start banner ─────────────────────────────────── */
+  .quickstart {
+    background: var(--orange-dim);
+    border: 1.5px solid var(--orange-line);
+    border-radius: var(--r);
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 44px;
+  }
+
+  .quickstart-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quickstart-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .qs-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .qs-row strong {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: .95rem;
+    white-space: nowrap;
+    min-width: 24px;
+    margin-top: 1px;
+    color: var(--orange);
+  }
+
+  .qs-row p { font-size: .95rem; }
+
+  /* ─── Section headings ───────────────────────────────────── */
+  section { margin-bottom: 44px; }
+
+  .section-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    text-wrap: balance;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--border);
+  }
+
+  /* ─── Directory tree ─────────────────────────────────────── */
+  .tree {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    border-radius: var(--r);
+    padding: 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .82rem;
+    line-height: 1.85;
+    overflow-x: auto;
+    margin-bottom: 24px;
+  }
+
+  .tree .dir  { color: #FFB347; font-weight: 500; }
+  .tree .file { color: var(--code-fg); }
+  .tree .note { color: #888; }
+  .tree .hi   { color: #6EE7B7; font-weight: 500; }
+  .tree .sep  { color: #555; }
+
+  /* ─── Dir cards ──────────────────────────────────────────── */
+  .dir-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .dir-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 18px 20px;
+  }
+
+  .dir-card-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .82rem;
+    font-weight: 500;
+    color: var(--orange-soft);
+    margin-bottom: 8px;
+  }
+
+  .dir-card-name .icon { font-size: 1rem; }
+
+  .dir-card p {
+    font-size: .88rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .dir-card ul {
+    margin-top: 8px;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .dir-card ul li {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    color: var(--muted);
+    padding-left: 12px;
+    position: relative;
+  }
+
+  .dir-card ul li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+  }
+
+  /* ─── Steps (install) ────────────────────────────────────── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .step-num {
+    width: 36px;
+    height: 36px;
+    background: var(--orange);
+    color: #fff;
+    border-radius: 50%;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: .9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-body h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .step-body p { font-size: .92rem; color: var(--muted); }
+
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .82em;
+    background: var(--orange-dim);
+    border: 1px solid var(--orange-line);
+    color: var(--orange-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* ─── Callout box ────────────────────────────────────────── */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--orange);
+    border-radius: 0 var(--r) var(--r) 0;
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-size: .9rem;
+  }
+
+  .callout strong { color: var(--orange); font-weight: 600; }
+
+  /* ─── Requirements table ─────────────────────────────────── */
+  .req-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .req-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .req-badge {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .req-card h4 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: .95rem;
+  }
+
+  .req-card p { font-size: .82rem; color: var(--muted); }
+
+  /* ─── Test data table ────────────────────────────────────── */
+  .test-table-wrap { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+  }
+
+  th {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: .78rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1.5px solid var(--border);
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    font-variant-numeric: tabular-nums;
+  }
+
+  td:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .82rem;
+    color: var(--orange-soft);
+  }
+
+  td:nth-child(2) {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .82rem;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  .badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .72rem;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin: 1px 2px;
+  }
+
+  .badge-n { background: rgba(229,57,53,.12); color: #E53935; }
+  .badge-h { background: rgba(30,100,210,.12); color: #1E64D2; }
+  .badge-p { background: rgba(38,166,90,.12); color: #26A65A; }
+
+  /* ─── Trouble ────────────────────────────────────────────── */
+  .trouble-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .trouble-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: baseline;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 12px 16px;
+    font-size: .9rem;
+  }
+
+  .trouble-row .fix {
+    font-size: .82rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ─── Footer ─────────────────────────────────────────────── */
+  footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: .8rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 32px 18px 60px; }
+    .header { flex-direction: column; gap: 12px; }
+    .dir-cards { grid-template-columns: 1fr; }
+    .req-grid { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 30px 1fr; gap: 12px; }
+    .trouble-row { grid-template-columns: 1fr; }
+    .trouble-row .fix { text-align: left; }
+  }
+</style>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-icon">📺</div>
+  <div class="header-text">
+    <h1><span>TIBI</span> — Asistente Virtual MasOrange TV</h1>
+    <p>Agente conversacional de incidencias · Google ADK + Claude · Guía de instalación para compañeros</p>
+  </div>
+</header>
+
+<!-- QUICK START -->
+<div class="quickstart">
+  <div style="flex-shrink:0;font-size:1.3rem;margin-top:2px">⚡</div>
+  <div class="quickstart-steps">
+    <div style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;margin-bottom:4px">Inicio rápido</div>
+    <div class="qs-row"><strong>1.</strong><p>Descomprime el ZIP en cualquier carpeta.</p></div>
+    <div class="qs-row"><strong>2.</strong><p>Entra en la carpeta <code>tv_agent/</code> y haz doble clic en <code>instalar.bat</code>.</p></div>
+    <div class="qs-row"><strong>3.</strong><p>Introduce tu token personal cuando el instalador te lo pida.</p></div>
+    <div class="qs-row"><strong>4.</strong><p>Para la demo, doble clic en <code>iniciar.vbs</code> — arranca el servidor y abre el navegador solo. O usa <code>iniciar.bat</code> si quieres ver los logs en pantalla.</p></div>
+  </div>
+</div>
+
+<!-- CONTENIDO DEL PAQUETE -->
+<section>
+  <div class="section-label">Estructura</div>
+  <h2>Qué hay en cada carpeta</h2>
+
+  <div class="tree">
+<span class="dir">tv_agent/</span><br>
+<span class="sep">│</span><br>
+<span class="sep">├── </span><span class="hi">instalar.bat</span>            <span class="note">← instalador: doble clic aquí para empezar</span><br>
+<span class="sep">├── </span><span class="hi">instalador.py</span>           <span class="note">← script Python que llama instalar.bat</span><br>
+<span class="sep">├── </span><span class="hi">iniciar.vbs</span>             <span class="note">← lanzador demo: arranca servidor + abre navegador solo</span><br>
+<span class="sep">├── </span><span class="file">iniciar.bat</span>             <span class="note">← lanzador con logs visibles en pantalla</span><br>
+<span class="sep">├── </span><span class="file">empaquetar.bat</span>          <span class="note">← genera el ZIP de distribución</span><br>
+<span class="sep">├── </span><span class="file">empaquetar.ps1</span>          <span class="note">← lógica PowerShell del empaquetador</span><br>
+<span class="sep">├── </span><span class="file">main.py</span>                 <span class="note">← punto de entrada (menú de modos)</span><br>
+<span class="sep">├── </span><span class="file">server.py</span>               <span class="note">← servidor web FastAPI (interfaz TV + /api/chat)</span><br>
+<span class="sep">├── </span><span class="file">requirements.txt</span>        <span class="note">← dependencias Python (instaladas automáticamente)</span><br>
+<span class="sep">│</span><br>
+<span class="sep">├── </span><span class="dir">app/</span>                    <span class="note">← definición del agente (Google ADK)</span><br>
+<span class="sep">│   ├── </span><span class="file">agent.py</span>            <span class="note">← TIBI + sub-agentes (contraseña y servicios)</span><br>
+<span class="sep">│   └── </span><span class="file">__init__.py</span><br>
+<span class="sep">│</span><br>
+<span class="sep">├── </span><span class="dir">tools/</span>                  <span class="note">← herramientas Python que usan los agentes</span><br>
+<span class="sep">│   ├── </span><span class="file">csv_tools.py</span>        <span class="note">← verificar cliente, restablecer contraseña, comprobar SVA</span><br>
+<span class="sep">│   └── </span><span class="file">excalibur_tools.py</span>  <span class="note">← simular llamada a Excalibur y generar ticket</span><br>
+<span class="sep">│</span><br>
+<span class="sep">├── </span><span class="dir">static/</span><br>
+<span class="sep">│   └── </span><span class="file">tv.html</span>             <span class="note">← interfaz visual estilo plataforma streaming</span><br>
+<span class="sep">│</span><br>
+<span class="sep">├── </span><span class="dir">ficheros/</span>               <span class="note">← datos de clientes (CSV)</span><br>
+<span class="sep">│   ├── </span><span class="file">cliente_credencial 1.csv</span>  <span class="note">← ~5 000 clientes: DNI, teléfono, contraseña</span><br>
+<span class="sep">│   └── </span><span class="file">usuarios_servicios.csv</span>    <span class="note">← ~8 000 filas: qué SVA tiene cada cliente</span><br>
+<span class="sep">│</span><br>
+<span class="sep">├── </span><span class="dir">Multimedia/</span>             <span class="note">← presentaciones y vídeo de la demo</span><br>
+<span class="sep">│   ├── </span><span class="file">Presentacion_TIBI_Estilo_Orange 2.pptx</span><br>
+<span class="sep">│   ├── </span><span class="file">TIBI__Asistente_Virtual_de_MasOrange_TV.pptx</span><br>
+<span class="sep">│   └── </span><span class="file">estos de orange.mp4</span><br>
+<span class="sep">│</span><br>
+<span class="sep">├── </span><span class="dir">Skill Agente/</span>           <span class="note">← Skill para mejorar el agente orquestador</span><br>
+<span class="sep">│   └── </span><span class="file">Skill__Asistente_Ágil_de_Incidencias_de_TV_y_Streaming.docx</span><br>
+<span class="sep">│</span><br>
+<span class="sep">├── </span><span class="file">DOCUMENTACION_TIBI.md</span>   <span class="note">← manual técnico completo (fuente de las presentaciones)</span><br>
+<span class="sep">└── </span><span class="file">arquitectura_tibi.html</span>  <span class="note">← diagrama de arquitectura interactivo</span>
+  </div>
+
+  <div class="dir-cards">
+    <div class="dir-card">
+      <div class="dir-card-name"><span class="icon">🚀</span>Lanzadores</div>
+      <p><code>iniciar.vbs</code> — para la demo: arranca el servidor en segundo plano y abre el navegador automáticamente después de 4 segundos.</p>
+      <p style="margin-top:6px"><code>iniciar.bat</code> — para desarrollo: misma función pero con la terminal visible para ver los logs en tiempo real.</p>
+    </div>
+
+    <div class="dir-card">
+      <div class="dir-card-name"><span class="icon">📦</span>Empaquetador</div>
+      <p>Doble clic en <code>empaquetar.bat</code> para generar un ZIP actualizado del proyecto en la misma carpeta, listo para compartir con otros compañeros.</p>
+    </div>
+
+    <div class="dir-card">
+      <div class="dir-card-name"><span class="icon">📂</span>app/</div>
+      <p>El cerebro del agente. Aquí vive TIBI y sus dos sub-agentes especializados, definidos con Google ADK.</p>
+      <ul>
+        <li>agent.py — orquestador + sub-agentes</li>
+        <li>__init__.py — exporta root_agent</li>
+      </ul>
+    </div>
+
+    <div class="dir-card">
+      <div class="dir-card-name"><span class="icon">🔧</span>tools/</div>
+      <p>Las herramientas reales que el agente llama: consultar clientes, resetear contraseñas y registrar tickets.</p>
+      <ul>
+        <li>csv_tools.py — acceso a los CSV</li>
+        <li>excalibur_tools.py — genera ticket .txt</li>
+      </ul>
+    </div>
+
+    <div class="dir-card">
+      <div class="dir-card-name"><span class="icon">🗄️</span>ficheros/</div>
+      <p>Base de datos simulada en CSV. El agente la lee (y escribe) en tiempo real durante las conversaciones.</p>
+      <ul>
+        <li>cliente_credencial 1.csv</li>
+        <li>usuarios_servicios.csv</li>
+      </ul>
+    </div>
+
+    <div class="dir-card">
+      <div class="dir-card-name"><span class="icon">🌐</span>static/</div>
+      <p>La interfaz visual completa en un único fichero HTML: réplica de una plataforma de streaming con el panel flotante de TIBI.</p>
+      <ul>
+        <li>tv.html — UI + chat + dictado por voz</li>
+      </ul>
+    </div>
+
+    <div class="dir-card">
+      <div class="dir-card-name"><span class="icon">🎬</span>Multimedia/</div>
+      <p>Material de presentación del hackathon: dos versiones del PPTX y el vídeo de la demo grabado.</p>
+      <ul>
+        <li>Presentacion_TIBI_Estilo_Orange 2.pptx</li>
+        <li>TIBI__Asistente_Virtual…pptx</li>
+        <li>estos de orange.mp4</li>
+      </ul>
+    </div>
+
+    <div class="dir-card">
+      <div class="dir-card-name"><span class="icon">⚡</span>Skill Agente/</div>
+      <p>Un Skill de Claude Code preparado durante el hackathon para mejorar el comportamiento del agente orquestador y facilitar su desarrollo iterativo.</p>
+      <ul>
+        <li>Skill__Asistente_Ágil…docx</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>📖 DOCUMENTACION_TIBI.md</strong> — Es el manual técnico y funcional completo del sistema (arquitectura, flujos, datos, logs, casos de prueba). Fue el documento de referencia del que se elaboraron las presentaciones del hackathon. Si quieres entender cómo funciona TIBI en profundidad, empieza por ahí.
+  </div>
+</section>
+
+<!-- REQUISITOS -->
+<section>
+  <div class="section-label">Antes de instalar</div>
+  <h2>Requisitos</h2>
+  <div class="req-grid">
+    <div class="req-card">
+      <span class="req-badge">Obligatorio</span>
+      <h4>Python 3.10+</h4>
+      <p>Si no lo tienes, descárgalo en <strong>python.org/downloads</strong> y marca «Add Python to PATH» durante la instalación.</p>
+    </div>
+    <div class="req-card">
+      <span class="req-badge">Obligatorio</span>
+      <h4>Red corporativa / VPN</h4>
+      <p>El agente llama al proxy LiteLLM interno de MasOrange. Sin acceso a la red corporativa no podrá conectarse al modelo.</p>
+    </div>
+    <div class="req-card">
+      <span class="req-badge">Obligatorio</span>
+      <h4>Token personal</h4>
+      <p>Un token propio del proxy LiteLLM (formato <code>sk-…</code>). Consíguelo en <strong>Gemini Enterprise</strong> hablando con el agente <strong>CloudAI</strong>.</p>
+    </div>
+    <div class="req-card">
+      <span class="req-badge">Recomendado</span>
+      <h4>Chrome o Edge</h4>
+      <p>Necesario para la función de dictado por voz (Web Speech API). En otros navegadores el chat de texto sigue funcionando.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSTALACIÓN -->
+<section>
+  <div class="section-label">Instalación</div>
+  <h2>Pasos de instalación</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Descomprime el ZIP</h3>
+        <p>Extrae <code>TIBI_tv_agent.zip</code> en la carpeta que quieras (por ejemplo <code>C:\TIBI\</code>). Obtendrás una carpeta <code>tv_agent/</code> con todo el proyecto.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Ejecuta el instalador</h3>
+        <p>Entra en <code>tv_agent/</code> y haz doble clic en <code>instalar.bat</code>. Se abrirá una ventana de terminal.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Introduce tu token</h3>
+        <p>El instalador te pedirá tu token personal del proxy corporativo (<code>sk-…</code>). Lo guardará en un fichero <code>.env</code> local que no se comparte con nadie.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Espera a que termine</h3>
+        <p>El instalador crea el entorno virtual Python (<code>.venv/</code>) e instala todas las dependencias automáticamente. Puede tardar 2–3 minutos la primera vez.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>Inicia el agente</h3>
+        <p>Haz doble clic en <code>iniciar.vbs</code> para la demo — arranca el servidor y abre el navegador en <strong>http://localhost:8000</strong> automáticamente. Si prefieres ver los logs, usa <code>iniciar.bat</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATOS DE PRUEBA -->
+<section>
+  <div class="section-label">Datos incluidos</div>
+  <h2>Clientes de prueba</h2>
+  <p style="font-size:.92rem;color:var(--muted);margin-bottom:16px">Los CSV ya vienen cargados con clientes de prueba. Usa estos datos para demostrar el sistema:</p>
+  <div class="test-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>DNI</th>
+          <th>Teléfono (login)</th>
+          <th>Servicios SVA</th>
+          <th>Escenario recomendado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>95822412L</td>
+          <td>985822412</td>
+          <td><span class="badge badge-n">Netflix</span></td>
+          <td>Olvido de contraseña · SVA no contratado (Prime)</td>
+        </tr>
+        <tr>
+          <td>24942603T</td>
+          <td>914942603</td>
+          <td><span class="badge badge-n">Netflix</span><span class="badge badge-h">HBO</span><span class="badge badge-p">Prime</span></td>
+          <td>Incidencia SVA activo (cualquier servicio)</td>
+        </tr>
+        <tr>
+          <td>13356886G</td>
+          <td>903356886</td>
+          <td><span class="badge badge-n">Netflix</span><span class="badge badge-h">HBO</span></td>
+          <td>Incidencia Netflix o HBO</td>
+        </tr>
+        <tr>
+          <td>46913810C</td>
+          <td>999529223</td>
+          <td><span class="badge badge-n">Netflix</span></td>
+          <td>Solo Netflix contratado</td>
+        </tr>
+        <tr>
+          <td>42868828W</td>
+          <td>936913810</td>
+          <td><span class="badge badge-n">Netflix</span><span class="badge badge-h">HBO</span></td>
+          <td>Contraseña + SVA activo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout" style="margin-top:14px">
+    Para probar una <strong>verificación fallida</strong>, introduce cualquier DNI o teléfono que no esté en la tabla. TIBI pedirá al cliente que revise los datos.
+  </div>
+</section>
+
+<!-- TROUBLESHOOTING -->
+<section>
+  <div class="section-label">Problemas frecuentes</div>
+  <h2>Solución de problemas</h2>
+  <div class="trouble-list">
+    <div class="trouble-row">
+      <span><code>python</code> no reconocido al abrir el .bat</span>
+      <span class="fix">Reinstala Python marcando «Add to PATH»</span>
+    </div>
+    <div class="trouble-row">
+      <span>Error de conexión al modelo de IA</span>
+      <span class="fix">Activa la VPN o conéctate a la red corporativa</span>
+    </div>
+    <div class="trouble-row">
+      <span>Token inválido o expirado</span>
+      <span class="fix">Pide uno nuevo al agente CloudAI en Gemini Enterprise y edita el <code>.env</code></span>
+    </div>
+    <div class="trouble-row">
+      <span>Puerto 8000 ya en uso</span>
+      <span class="fix">Cierra otras aplicaciones en ese puerto o reinicia</span>
+    </div>
+    <div class="trouble-row">
+      <span>Clientes no encontrados en CSV</span>
+      <span class="fix">Verifica que la carpeta <code>ficheros/</code> contiene los dos CSV</span>
+    </div>
+    <div class="trouble-row">
+      <span>El micrófono no funciona</span>
+      <span class="fix">Usa Chrome o Edge; Web Speech API no está disponible en Firefox</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>TIBI — Asistente Virtual MasOrange TV</span>
+  <span>Hackathon Procurement · Septiembre 2026 · Google ADK 2.10 + Claude Sonnet 4.5</span>
+</footer>

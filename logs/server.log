@@ -1,0 +1,150 @@
+2026-10-21 12:54:46 | INFO     | tv_agent.server | 📨 [chat] session=3674d2af msg=Hola
+2026-10-21 12:55:06 | ERROR    | tv_agent.server | Error en el runner ADK
+Traceback (most recent call last):
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_node_runner_utils.py", line 262, in _drive_root_node
+    await root_ctx._run_node_internal(  # pylint: disable=protected-access
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\agents\context.py", line 516, in _run_node_internal
+    return await _dynamic_node_scheduler.run_node_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_dynamic_node_scheduler.py", line 758, in run_node_internal
+    raise DynamicNodeFailError(
+google.adk.workflow._errors.DynamicNodeFailError: Dynamic node agente_principal failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\server.py", line 194, in chat
+    async for event in runner.run_async(
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\runners.py", line 1227, in run_async
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\runners.py", line 605, in _run_node_async
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_node_runner_utils.py", line 377, in run_node_async
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\telemetry\_instrumentation.py", line 164, in stream_in_scope
+    item = await _drive(owned.__anext__())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\telemetry\_instrumentation.py", line 152, in _drive
+    return await step
+           ^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_node_runner_utils.py", line 295, in _run
+    await runner._cleanup_root_task(  # pylint: disable=protected-access
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\runners.py", line 889, in _cleanup_root_task
+    await task
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_node_runner_utils.py", line 271, in _drive_root_node
+    raise e.error
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_node_runner.py", line 138, in run
+    await self._execute_node(ctx, node_input)
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_node_runner.py", line 316, in _execute_node
+    await self._run_node_loop(ctx, node_input)
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_node_runner.py", line 330, in _run_node_loop
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_base_node.py", line 190, in run
+    async for item in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 689, in _run_impl
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\workflow\_llm_agent_wrapper.py", line 527, in run_llm_agent_as_node
+    async for event in run_iter:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 359, in run_async
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 460, in _run_with_lifecycle
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\telemetry\_instrumentation.py", line 164, in stream_in_scope
+    item = await _drive(owned.__anext__())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\telemetry\_instrumentation.py", line 152, in _drive
+    return await step
+           ^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 423, in _run
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 638, in _run_async_impl
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 343, in run_async
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 425, in _run_one_step_async
+    async for llm_response in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 619, in _call_llm_async
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\flows\llm_flows\core\_model_call.py", line 316, in call_llm_async
+    async for event in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\telemetry\_instrumentation.py", line 164, in stream_in_scope
+    item = await _drive(owned.__anext__())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\telemetry\_instrumentation.py", line 152, in _drive
+    return await step
+           ^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\flows\llm_flows\core\_model_call.py", line 277, in _call_llm_with_tracing
+    async for llm_response in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 669, in _run_and_handle_error
+    async for response in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\flows\llm_flows\core\_finalizer.py", line 397, in run_and_handle_error
+    raise model_error
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\flows\llm_flows\core\_finalizer.py", line 370, in run_and_handle_error
+    async for llm_response in agen:
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\models\lite_llm.py", line 4289, in generate_content_async
+    response = await self.llm_client.acompletion(**completion_args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\google\adk\models\lite_llm.py", line 1188, in acompletion
+    return await acompletion(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\chat_completions\dispatch.py", line 102, in acompletion
+    return await _ADISPATCH.arun(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\rust_bridge\dispatch.py", line 114, in arun
+    return await python(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\utils.py", line 2297, in wrapper_async
+    raise e
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\utils.py", line 2112, in wrapper_async
+    result = await original_function(*args, **call_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\main.py", line 740, in acompletion
+    raise exception_type(
+          ^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\litellm_core_utils\exception_mapping_utils.py", line 2740, in exception_type
+    raise e
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\litellm_core_utils\exception_mapping_utils.py", line 2706, in exception_type
+    raise APIConnectionError(
+litellm.exceptions.APIConnectionError: litellm.APIConnectionError: No module named 'mcp'
+Traceback (most recent call last):
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\main.py", line 681, in acompletion
+    init_response: Final = await loop.run_in_executor(None, func_with_context)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\AppData\Roaming\uv\python\cpython-3.12.15-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\utils.py", line 1705, in wrapper
+    result = original_function(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\main.py", line 5297, in completion
+    from litellm.responses.mcp.chat_completions_handler import acompletion_with_mcp
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\responses\mcp\chat_completions_handler.py", line 10, in <module>
+    from litellm.responses.mcp.litellm_proxy_mcp_handler import (
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\responses\mcp\litellm_proxy_mcp_handler.py", line 13, in <module>
+    from litellm.proxy._experimental.mcp_server.catalog import catalog_operation, global_manager
+  File "C:\Users\daniel.braun\development\TIBI_AgenteIA\.venv\Lib\site-packages\litellm\proxy\_experimental\mcp_server\catalog.py", line 20, in <module>
+    from mcp.types import CacheableResult
+ModuleNotFoundError: No module named 'mcp'
+
+This looks like a bug in LiteLLM rather than in your request. File it with one click (prefilled, no request data or error text, review before submitting): https://github.com/BerriAI/litellm/issues/new?template=bug_report.yml&labels=bug&title=%5BBug%5D%3A+ModuleNotFoundError+in+litellm%2Fproxy%2F_experimental%2Fmcp_server%2Fcatalog.py&version=1.106.2&domain=Python+SDK%3A+the+litellm+package+itself&description=Auto-generated+by+LiteLLM%27s+bug+report+link.+It+carries+no+request+data+or+error+text.+Please+describe+what+you+were+doing%2C+and+paste+the+error+message+from+your+log+below+if+it+contains+nothing+sensitive.%0A%0A%60%60%60%0A%0A%60%60%60%0A%0AException%3A+%60ModuleNotFoundError%60%0A%0ALiteLLM+frames%3A%0A%60%60%60%0Alitellm%2Fmain.py%3A681+in+acompletion%0Alitellm%2Futils.py%3A1705+in+wrapper%0Alitellm%2Fmain.py%3A5297+in+completion%0Alitellm%2Fresponses%2Fmcp%2Fchat_completions_handler.py%3A10+in+%3Cmodule%3E%0Alitellm%2Fresponses%2Fmcp%2Flitellm_proxy_mcp_handler.py%3A13+in+%3Cmodule%3E%0Alitellm%2Fproxy%2F_experimental%2Fmcp_server%2Fcatalog.py%3A20+in+%3Cmodule%3E%0A%60%60%60%0A%0ASurface%3A+sdk%0AEndpoint+%2F+call%3A+unknown%0AProvider%3A+anthropic%0ALiteLLM%3A+1.106.2%0APython%3A+3.12.15%0A&deployment=pip+%2F+Python+SDK
+2026-10-21 12:56:28 | INFO     | tv_agent.server | 📨 [chat] session=d357ed5c msg=Hola
+2026-10-21 12:56:55 | INFO     | tv_agent.server | 📤 [chat] session=d357ed5c reply=¡Hola! Soy **TIBI**, el asistente virtual de MasOrange TV. 👋
+
+Estoy aquí para ay
+2026-10-21 13:03:04 | INFO     | tv_agent.server | 🚀 MasOrange TV Agent server arrancando…
+2026-10-21 13:03:49 | INFO     | tv_agent.server | 🟢 [heartbeat] Cliente conectado — cancelando apagado pendiente.
+2026-10-21 13:04:14 | INFO     | tv_agent.server | 📨 [chat] session=f1723ec8 msg=no me funciona la contraseña
+2026-10-21 13:04:41 | INFO     | tv_agent.server | 📤 [chat] session=f1723ec8 reply=¡Hola! Soy **TIBI**, el asistente virtual de MasOrange TV. 
+
+Entiendo que tienes
+2026-10-21 13:05:40 | INFO     | tv_agent.server | 📨 [chat] session=f1723ec8 msg=DNI: 24942603T
+Telefono: 914942603
+2026-10-21 13:05:54 | INFO     | tv_agent.server | 📤 [chat] session=f1723ec8 reply=Perfecto, gracias por los datos. Voy a verificar tu cuenta en el sistema.Excelen
+2026-10-21 13:06:50 | INFO     | tv_agent.server | 📨 [chat] session=f1723ec8 msg=no me funciona Netflix
+2026-10-21 13:07:03 | INFO     | tv_agent.server | 📤 [chat] session=f1723ec8 reply=Entendido, veo que tienes un problema con Netflix. Voy a ayudarte a solucionarlo
+2026-10-21 13:28:01 | INFO     | tv_agent.server | 🔴 [heartbeat] Cliente desconectado — programando apagado en 5 s.
+2026-10-21 13:28:01 | INFO     | tv_agent.server | 🟢 [heartbeat] Cliente conectado — cancelando apagado pendiente.
+2026-10-21 13:28:02 | INFO     | tv_agent.server | 🔴 [heartbeat] Cliente desconectado — programando apagado en 5 s.
+2026-10-21 13:28:02 | INFO     | tv_agent.server | 🟢 [heartbeat] Cliente conectado — cancelando apagado pendiente.
+2026-10-21 13:28:03 | INFO     | tv_agent.server | 🔴 [heartbeat] Cliente desconectado — programando apagado en 5 s.
+2026-10-21 13:28:03 | INFO     | tv_agent.server | 🟢 [heartbeat] Cliente conectado — cancelando apagado pendiente.

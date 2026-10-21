@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Arquitectura TIBI — MasOrange TV</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1600px; height: 900px;
+    background: #08080D;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradientes -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D0D14"/>
+      <stop offset="100%" stop-color="#08080D"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF5500"/>
+      <stop offset="100%" stop-color="#CC3D00"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1A3A6B"/>
+      <stop offset="100%" stop-color="#0F2244"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F3B1F"/>
+      <stop offset="100%" stop-color="#082810"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2A1A4A"/>
+      <stop offset="100%" stop-color="#1A0D30"/>
+    </linearGradient>
+    <linearGradient id="grayGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1E1E28"/>
+      <stop offset="100%" stop-color="#141420"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A2A30"/>
+      <stop offset="100%" stop-color="#051820"/>
+    </linearGradient>
+
+    <!-- Flecha marcadores -->
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#FF5500"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4A4A6A"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2A8A4A"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3A6ACC"/>
+    </marker>
+    <marker id="arrowYellow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#C8A820"/>
+    </marker>
+
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowStrong">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- FONDO -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <rect width="1600" height="900" fill="url(#bgGrad)"/>
+
+  <!-- Grid sutil de fondo -->
+  <g opacity="0.04" stroke="#8888AA" stroke-width="0.5">
+    <line x1="0" y1="100" x2="1600" y2="100"/>
+    <line x1="0" y1="200" x2="1600" y2="200"/>
+    <line x1="0" y1="300" x2="1600" y2="300"/>
+    <line x1="0" y1="400" x2="1600" y2="400"/>
+    <line x1="0" y1="500" x2="1600" y2="500"/>
+    <line x1="0" y1="600" x2="1600" y2="600"/>
+    <line x1="0" y1="700" x2="1600" y2="700"/>
+    <line x1="0" y1="800" x2="1600" y2="800"/>
+    <line x1="200" y1="0" x2="200" y2="900"/>
+    <line x1="400" y1="0" x2="400" y2="900"/>
+    <line x1="600" y1="0" x2="600" y2="900"/>
+    <line x1="800" y1="0" x2="800" y2="900"/>
+    <line x1="1000" y1="0" x2="1000" y2="900"/>
+    <line x1="1200" y1="0" x2="1200" y2="900"/>
+    <line x1="1400" y1="0" x2="1400" y2="900"/>
+  </g>
+
+  <!-- Banda decorativa naranja superior -->
+  <rect x="0" y="0" width="1600" height="4" fill="url(#orangeGrad)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- TÍTULO -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- Logo MasOrange -->
+  <text x="44" y="54" font-family="'Segoe UI',system-ui,sans-serif" font-size="22" font-weight="900" fill="#F0F0F4">
+    Mas<tspan fill="#FF5500">Orange</tspan> TV
+  </text>
+
+  <!-- Título principal -->
+  <text x="800" y="45" font-family="'Segoe UI',system-ui,sans-serif" font-size="30" font-weight="700" fill="#F2F2F4" text-anchor="middle" letter-spacing="-0.5">
+    Arquitectura del Sistema — TIBI
+  </text>
+  <text x="800" y="68" font-family="'Segoe UI',system-ui,sans-serif" font-size="14" fill="#6666AA" text-anchor="middle" letter-spacing="3">
+    ASISTENTE VIRTUAL · GOOGLE ADK · CLAUDE SONNET 4.5
+  </text>
+
+  <!-- Línea separadora -->
+  <line x1="44" y1="78" x2="1556" y2="78" stroke="#FF5500" stroke-width="1" opacity="0.35"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- ETIQUETAS DE CAPA (columna izquierda) -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- Capa UI -->
+  <rect x="12" y="94" width="7" height="92" rx="3" fill="#3A6ACC" opacity="0.8"/>
+  <text x="26" y="127" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" fill="#3A6ACC" letter-spacing="2" transform="rotate(-90,26,127)" text-anchor="middle">CAPA UI</text>
+
+  <!-- Capa API -->
+  <rect x="12" y="200" width="7" height="80" rx="3" fill="#8844CC" opacity="0.8"/>
+  <text x="26" y="235" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" fill="#8844CC" letter-spacing="2" transform="rotate(-90,26,235)" text-anchor="middle">API</text>
+
+  <!-- Capa Modelo -->
+  <rect x="12" y="294" width="7" height="90" rx="3" fill="#4488CC" opacity="0.8"/>
+  <text x="26" y="335" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" fill="#4488CC" letter-spacing="2" transform="rotate(-90,26,335)" text-anchor="middle">MODELO</text>
+
+  <!-- Capa Agentes -->
+  <rect x="12" y="396" width="7" height="200" rx="3" fill="#FF5500" opacity="0.8"/>
+  <text x="26" y="497" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" fill="#FF5500" letter-spacing="2" transform="rotate(-90,26,497)" text-anchor="middle">AGENTES</text>
+
+  <!-- Capa Datos -->
+  <rect x="12" y="608" width="7" height="115" rx="3" fill="#2A8A4A" opacity="0.8"/>
+  <text x="26" y="667" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" fill="#2A8A4A" letter-spacing="2" transform="rotate(-90,26,667)" text-anchor="middle">DATOS</text>
+
+  <!-- Capa Logs -->
+  <rect x="12" y="734" width="7" height="130" rx="3" fill="#C8A820" opacity="0.8"/>
+  <text x="26" y="810" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="700" fill="#C8A820" letter-spacing="2" transform="rotate(-90,26,810)" text-anchor="middle">LOGS</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CAPA 1: NAVEGADOR -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- Caja navegador / TV UI -->
+  <rect x="510" y="94" width="580" height="96" rx="12" fill="url(#blueGrad)" stroke="#3A6ACC" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="510" y="94" width="580" height="5" rx="3" fill="#3A6ACC" opacity="0.6"/>
+
+  <!-- Icono monitor -->
+  <text x="556" y="150" font-size="32" text-anchor="middle">🖥️</text>
+
+  <text x="800" y="127" font-family="'Segoe UI',system-ui,sans-serif" font-size="15" font-weight="700" fill="#AACCFF" text-anchor="middle">NAVEGADOR DEL CLIENTE</text>
+  <text x="800" y="148" font-family="'Segoe UI',system-ui,sans-serif" font-size="12" fill="#7799CC" text-anchor="middle">Interfaz MasOrange TV (HTML5)  ·  Panel flotante TIBI</text>
+  <text x="800" y="168" font-family="'Segoe UI',system-ui,sans-serif" font-size="11" fill="#556688" text-anchor="middle">Voz (Web Speech API)  ·  Texto  ·  Markdown rendering  ·  Historial de sesión</text>
+
+  <!-- Badge streaming -->
+  <rect x="1040" y="110" width="38" height="18" rx="9" fill="#E03030"/>
+  <text x="1059" y="123" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">LIVE</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- FLECHA: Browser → FastAPI -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <line x1="800" y1="190" x2="800" y2="208" stroke="#3A6ACC" stroke-width="2" marker-end="url(#arrowBlue)" stroke-dasharray="5,3"/>
+  <rect x="700" y="194" width="200" height="18" rx="9" fill="#0D1830"/>
+  <text x="800" y="207" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#5577AA" text-anchor="middle">HTTP POST /api/chat</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CAPA 2: FASTAPI SERVER -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <rect x="560" y="210" width="480" height="78" rx="12" fill="url(#purpleGrad)" stroke="#7744BB" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="560" y="210" width="480" height="5" rx="3" fill="#7744BB" opacity="0.6"/>
+
+  <text x="640" y="247" font-size="26" text-anchor="middle">⚡</text>
+  <text x="800" y="242" font-family="'Segoe UI',system-ui,sans-serif" font-size="15" font-weight="700" fill="#CC99FF" text-anchor="middle">FASTAPI SERVER  :8000</text>
+  <text x="800" y="260" font-family="'Segoe UI',system-ui,sans-serif" font-size="11" fill="#8866AA" text-anchor="middle">GET /  →  tv.html    ·    POST /api/chat  →  ADK Runner    ·    GET /health</text>
+  <text x="800" y="277" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#664488" text-anchor="middle">Gestión de sesiones UUID  ·  CORS  ·  Uvicorn ASGI</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- FLECHA: FastAPI → ADK -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <line x1="660" y1="288" x2="660" y2="306" stroke="#8844CC" stroke-width="2" marker-end="url(#arrowGray)"/>
+  <text x="680" y="300" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#665588">runner.run_async()</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CAPA 3: ADK RUNNER + LITELLM + CLAUDE -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- ADK Runner -->
+  <rect x="390" y="308" width="290" height="78" rx="12" fill="url(#grayGrad)" stroke="#4A4A7A" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="390" y="308" width="290" height="5" rx="3" fill="#4A4A7A" opacity="0.6"/>
+  <text x="432" y="348" font-size="24" text-anchor="middle">🔄</text>
+  <text x="535" y="340" font-family="'Segoe UI',system-ui,sans-serif" font-size="14" font-weight="700" fill="#AAAACC" text-anchor="middle">Google ADK 2.10</text>
+  <text x="535" y="358" font-family="'Segoe UI',system-ui,sans-serif" font-size="11" fill="#666688" text-anchor="middle">Runner + InMemorySessionService</text>
+  <text x="535" y="374" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#444466" text-anchor="middle">Multi-agente / Sub-agentes</text>
+
+  <!-- Flecha ADK → LiteLLM -->
+  <line x1="682" y1="347" x2="748" y2="347" stroke="#4A4A7A" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+  <!-- LiteLLM -->
+  <rect x="750" y="318" width="220" height="58" rx="10" fill="url(#tealGrad)" stroke="#2A6677" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="810" y="348" font-size="20" text-anchor="middle">🔮</text>
+  <text x="860" y="340" font-family="'Segoe UI',system-ui,sans-serif" font-size="13" font-weight="700" fill="#44AACC" text-anchor="middle">LiteLLM Proxy</text>
+  <text x="860" y="356" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#336677" text-anchor="middle">llm.tools.cloud.masorange.es</text>
+  <text x="860" y="368" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#225566" text-anchor="middle">Proxy corporativo MasOrange</text>
+
+  <!-- Flecha LiteLLM → Claude -->
+  <line x1="972" y1="347" x2="1038" y2="347" stroke="#2A6677" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+  <!-- Claude -->
+  <rect x="1040" y="308" width="290" height="78" rx="12" fill="#1A0A08" stroke="#FF5500" stroke-width="1.5" filter="url(#glowStrong)"/>
+  <rect x="1040" y="308" width="290" height="5" rx="3" fill="url(#orangeGrad)" opacity="0.8"/>
+  <text x="1090" y="348" font-size="26" text-anchor="middle">🤖</text>
+  <text x="1185" y="340" font-family="'Segoe UI',system-ui,sans-serif" font-size="14" font-weight="700" fill="#FF8855" text-anchor="middle">Claude Sonnet 4.5</text>
+  <text x="1185" y="358" font-family="'Segoe UI',system-ui,sans-serif" font-size="11" fill="#CC5533" text-anchor="middle">Anthropic · Razonamiento LLM</text>
+  <text x="1185" y="374" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#884422" text-anchor="middle">Todos los agentes comparten el modelo</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- FLECHA: ADK → TIBI -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <line x1="535" y1="386" x2="535" y2="406" stroke="#FF5500" stroke-width="2.5" marker-end="url(#arrowOrange)"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CAPA 4: TIBI (agente principal) -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <rect x="340" y="408" width="560" height="96" rx="14" fill="#200800" stroke="#FF5500" stroke-width="2" filter="url(#glowStrong)"/>
+  <rect x="340" y="408" width="560" height="6" rx="3" fill="url(#orangeGrad)"/>
+
+  <!-- Glow interior -->
+  <rect x="342" y="414" width="556" height="88" rx="12" fill="#FF5500" opacity="0.04"/>
+
+  <text x="412" y="460" font-size="32" text-anchor="middle">🎯</text>
+  <text x="620" y="443" font-family="'Segoe UI',system-ui,sans-serif" font-size="19" font-weight="900" fill="#FF5500" text-anchor="middle" filter="url(#glow)">TIBI — Agente Principal</text>
+  <text x="620" y="462" font-family="'Segoe UI',system-ui,sans-serif" font-size="12" fill="#CC4400" text-anchor="middle">Orquestador  ·  agente_principal  ·  Google ADK</text>
+  <text x="620" y="479" font-family="'Segoe UI',system-ui,sans-serif" font-size="11" fill="#884422" text-anchor="middle">Recoge DNI + teléfono  ·  verificar_cliente()  ·  Enruta al sub-agente</text>
+  <text x="620" y="494" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#663311" text-anchor="middle">🔒 No revela arquitectura  ·  No genera código  ·  Solo MasOrange TV</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- FLECHAS: TIBI → Sub-agentes -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- TIBI → Agente Contraseña -->
+  <line x1="490" y1="504" x2="430" y2="548" stroke="#FF5500" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="435" y="533" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#FF5500" transform="rotate(-30,435,533)">transfer_to</text>
+
+  <!-- TIBI → Agente Servicios -->
+  <line x1="735" y1="504" x2="810" y2="548" stroke="#FF5500" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="740" y="533" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#FF5500" transform="rotate(30,740,533)">transfer_to</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CAPA 4b: SUB-AGENTES -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- Agente Contraseña -->
+  <rect x="234" y="550" width="340" height="92" rx="12" fill="#1A0800" stroke="#FF6622" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="234" y="550" width="340" height="5" rx="3" fill="#FF6622" opacity="0.7"/>
+  <text x="292" y="596" font-size="26" text-anchor="middle">🔑</text>
+  <text x="404" y="582" font-family="'Segoe UI',system-ui,sans-serif" font-size="14" font-weight="700" fill="#FF8844" text-anchor="middle">Agente Contraseña</text>
+  <text x="404" y="598" font-family="'Segoe UI',system-ui,sans-serif" font-size="11" fill="#AA5533" text-anchor="middle">agente_contrasena</text>
+  <text x="404" y="614" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#774422" text-anchor="middle">restablecer_contrasena(dni)</text>
+  <text x="404" y="630" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#553311" text-anchor="middle">Genera pass segura · Actualiza CSV · Notifica cliente</text>
+
+  <!-- Agente Servicios -->
+  <rect x="686" y="550" width="380" height="92" rx="12" fill="#001A08" stroke="#22BB55" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="686" y="550" width="380" height="5" rx="3" fill="#22BB55" opacity="0.7"/>
+  <text x="748" y="596" font-size="26" text-anchor="middle">📺</text>
+  <text x="876" y="582" font-family="'Segoe UI',system-ui,sans-serif" font-size="14" font-weight="700" fill="#44CC77" text-anchor="middle">Agente Servicios SVA</text>
+  <text x="876" y="598" font-family="'Segoe UI',system-ui,sans-serif" font-size="11" fill="#228844" text-anchor="middle">agente_servicios</text>
+  <text x="876" y="614" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#116633" text-anchor="middle">comprobar_servicio(dni, svc)  ·  llamar_excalibur(dni, login, svc)</text>
+  <text x="876" y="630" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#0A4422" text-anchor="middle">Netflix · HBO Max · Amazon Prime Video</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- FLECHAS hacia datos -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- Contraseña → CSV Cred -->
+  <line x1="370" y1="642" x2="330" y2="680" stroke="#FF6622" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <!-- Contraseña → CSV Cred (flecha doble para R/W) -->
+  <text x="308" y="665" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#FF6622">R / W</text>
+
+  <!-- Servicios → CSV Svc -->
+  <line x1="810" y1="642" x2="770" y2="680" stroke="#22BB55" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <text x="768" y="665" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#22BB55">R</text>
+
+  <!-- Servicios → Excalibur -->
+  <line x1="940" y1="642" x2="1000" y2="680" stroke="#22BB55" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <text x="955" y="665" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#22BB55">W</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CAPA 5: FUENTES DE DATOS -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CSV Credenciales -->
+  <rect x="130" y="682" width="310" height="80" rx="10" fill="url(#greenGrad)" stroke="#2A8A4A" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="130" y="682" width="310" height="4" rx="2" fill="#2A8A4A" opacity="0.7"/>
+  <text x="186" y="720" font-size="22" text-anchor="middle">📋</text>
+  <text x="285" y="710" font-family="'Segoe UI',system-ui,sans-serif" font-size="13" font-weight="700" fill="#55CC77" text-anchor="middle">cliente_credencial 1.csv</text>
+  <text x="285" y="727" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#338855" text-anchor="middle">DNI · login (teléfono) · contraseña</text>
+  <text x="285" y="742" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#226644" text-anchor="middle">~5.000 clientes · Lectura + Escritura</text>
+  <text x="285" y="755" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#1A4433" text-anchor="middle">passwords con secrets.choice() · Criptográficamente seguro</text>
+
+  <!-- CSV Servicios -->
+  <rect x="490" y="682" width="310" height="80" rx="10" fill="url(#greenGrad)" stroke="#2A8A4A" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="490" y="682" width="310" height="4" rx="2" fill="#2A8A4A" opacity="0.7"/>
+  <text x="546" y="720" font-size="22" text-anchor="middle">📊</text>
+  <text x="645" y="710" font-family="'Segoe UI',system-ui,sans-serif" font-size="13" font-weight="700" fill="#55CC77" text-anchor="middle">usuarios_servicios.csv</text>
+  <text x="645" y="727" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#338855" text-anchor="middle">DNI · servicio (NETFLIX / HBO / PRIME)</text>
+  <text x="645" y="742" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#226644" text-anchor="middle">~8.000 filas · Solo lectura (consulta SVA)</text>
+  <text x="645" y="755" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#1A4433" text-anchor="middle">Relación N:M cliente-servicio</text>
+
+  <!-- Excalibur calls -->
+  <rect x="850" y="682" width="340" height="80" rx="10" fill="#0A1A0A" stroke="#1A8A8A" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="850" y="682" width="340" height="4" rx="2" fill="#1A8A8A" opacity="0.7"/>
+  <text x="908" y="720" font-size="22" text-anchor="middle">🎫</text>
+  <text x="1020" y="710" font-family="'Segoe UI',system-ui,sans-serif" font-size="13" font-weight="700" fill="#44AAAA" text-anchor="middle">excalibur_calls / *.txt</text>
+  <text x="1020" y="727" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#226666" text-anchor="middle">Ticket ID · DNI · Teléfono · Servicio · SLA</text>
+  <text x="1020" y="742" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#165555" text-anchor="middle">EXC-{fecha}-{DNI}-{SVC}  ·  Solo escritura</text>
+  <text x="1020" y="755" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#104444" text-anchor="middle">Simulación plataforma Excalibur · Integración futura vía API/cola</text>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- CAPA 6: LOGS -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- Título logs -->
+  <text x="800" y="800" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#C8A820" text-anchor="middle" letter-spacing="2">SISTEMA DE LOGS — Trazabilidad completa · DEBUG en fichero · INFO en consola</text>
+
+  <!-- server.log -->
+  <rect x="92" y="810" width="264" height="64" rx="8" fill="#1A1A08" stroke="#C8A820" stroke-width="1" opacity="0.9"/>
+  <text x="174" y="830" font-family="'Courier New',monospace" font-size="11" font-weight="700" fill="#C8A820" text-anchor="middle">server.log</text>
+  <text x="174" y="846" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#886633" text-anchor="middle">Peticiones HTTP · Latencia</text>
+  <text x="174" y="861" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#664422" text-anchor="middle">Errores 500 · Tráfico de usuarios</text>
+
+  <!-- agente_principal.log -->
+  <rect x="372" y="810" width="264" height="64" rx="8" fill="#1A0800" stroke="#FF8833" stroke-width="1" opacity="0.9"/>
+  <text x="504" y="830" font-family="'Courier New',monospace" font-size="11" font-weight="700" fill="#FF8833" text-anchor="middle">agente_principal.log</text>
+  <text x="504" y="846" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#AA5522" text-anchor="middle">Sesiones · Verificaciones · Transfers</text>
+  <text x="504" y="861" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#774411" text-anchor="middle">Detección fraude · KPI tipo incidencia</text>
+
+  <!-- agente_contrasena.log -->
+  <rect x="652" y="810" width="264" height="64" rx="8" fill="#1A0800" stroke="#FF6622" stroke-width="1" opacity="0.9"/>
+  <text x="784" y="830" font-family="'Courier New',monospace" font-size="11" font-weight="700" fill="#FF6622" text-anchor="middle">agente_contrasena.log</text>
+  <text x="784" y="846" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#AA4411" text-anchor="middle">Restablecimientos · Escritura CSV</text>
+  <text x="784" y="861" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#773300" text-anchor="middle">Auditoría credenciales · Alertas anomalía</text>
+
+  <!-- agente_servicios.log -->
+  <rect x="932" y="810" width="264" height="64" rx="8" fill="#001A08" stroke="#22BB55" stroke-width="1" opacity="0.9"/>
+  <text x="1064" y="830" font-family="'Courier New',monospace" font-size="11" font-weight="700" fill="#22BB55" text-anchor="middle">agente_servicios.log</text>
+  <text x="1064" y="846" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#116633" text-anchor="middle">Consultas SVA · Tickets Excalibur</text>
+  <text x="1064" y="861" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#0A4422" text-anchor="middle">KPI por plataforma · SLA cumplidos</text>
+
+  <!-- csv_tools.log (subcomponent) -->
+  <rect x="1212" y="810" width="264" height="64" rx="8" fill="#0A0A1A" stroke="#6666AA" stroke-width="1" opacity="0.7"/>
+  <text x="1344" y="830" font-family="'Courier New',monospace" font-size="11" font-weight="700" fill="#8888CC" text-anchor="middle">csv_tools.log</text>
+  <text x="1344" y="846" font-family="'Segoe UI',system-ui,sans-serif" font-size="9.5" fill="#444488" text-anchor="middle">Todas las operaciones CSV</text>
+  <text x="1344" y="861" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" fill="#332255" text-anchor="middle">R/W detallado · Errores de IO</text>
+
+  <!-- Separador logs -->
+  <line x1="92" y1="806" x2="1476" y2="806" stroke="#C8A820" stroke-width="0.5" opacity="0.3" stroke-dasharray="4,4"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- PANEL LATERAL DERECHO: TECH STACK -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <rect x="1258" y="94" width="300" height="480" rx="12" fill="#0D0D18" stroke="#333355" stroke-width="1"/>
+  <rect x="1258" y="94" width="300" height="5" rx="3" fill="#333355" opacity="0.6"/>
+  <text x="1408" y="122" font-family="'Segoe UI',system-ui,sans-serif" font-size="12" font-weight="700" fill="#6666AA" text-anchor="middle" letter-spacing="2">TECH STACK</text>
+
+  <!-- Tech items -->
+  <g font-family="'Segoe UI',system-ui,sans-serif" font-size="11">
+    <!-- Row -->
+    <rect x="1270" y="134" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="153" fill="#888">🤖</text>
+    <text x="1310" y="153" fill="#AAAACC" font-weight="600">Claude Sonnet 4.5</text>
+    <text x="1520" y="153" fill="#555" text-anchor="end">Anthropic</text>
+
+    <rect x="1270" y="166" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="185" fill="#888">🔄</text>
+    <text x="1310" y="185" fill="#AAAACC" font-weight="600">Google ADK 2.10</text>
+    <text x="1520" y="185" fill="#555" text-anchor="end">Agentes</text>
+
+    <rect x="1270" y="198" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="217" fill="#888">🔮</text>
+    <text x="1310" y="217" fill="#AAAACC" font-weight="600">LiteLLM 1.103</text>
+    <text x="1520" y="217" fill="#555" text-anchor="end">Proxy LLM</text>
+
+    <rect x="1270" y="230" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="249" fill="#888">⚡</text>
+    <text x="1310" y="249" fill="#AAAACC" font-weight="600">FastAPI 0.141</text>
+    <text x="1520" y="249" fill="#555" text-anchor="end">API REST</text>
+
+    <rect x="1270" y="262" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="281" fill="#888">🚀</text>
+    <text x="1310" y="281" fill="#AAAACC" font-weight="600">Uvicorn 0.54</text>
+    <text x="1520" y="281" fill="#555" text-anchor="end">ASGI Server</text>
+
+    <rect x="1270" y="294" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="313" fill="#888">🐍</text>
+    <text x="1310" y="313" fill="#AAAACC" font-weight="600">Python 3.12</text>
+    <text x="1520" y="313" fill="#555" text-anchor="end">Runtime</text>
+
+    <rect x="1270" y="326" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="345" fill="#888">🌐</text>
+    <text x="1310" y="345" fill="#AAAACC" font-weight="600">HTML5 + JS nativo</text>
+    <text x="1520" y="345" fill="#555" text-anchor="end">Frontend</text>
+
+    <rect x="1270" y="358" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="377" fill="#888">📝</text>
+    <text x="1310" y="377" fill="#AAAACC" font-weight="600">marked.js 9.1.6</text>
+    <text x="1520" y="377" fill="#555" text-anchor="end">Markdown</text>
+
+    <rect x="1270" y="390" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="409" fill="#888">🎙️</text>
+    <text x="1310" y="409" fill="#AAAACC" font-weight="600">Web Speech API</text>
+    <text x="1520" y="409" fill="#555" text-anchor="end">Voz ES</text>
+
+    <rect x="1270" y="422" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="441" fill="#888">📁</text>
+    <text x="1310" y="441" fill="#AAAACC" font-weight="600">CSV stdlib Python</text>
+    <text x="1520" y="441" fill="#555" text-anchor="end">Datos</text>
+
+    <rect x="1270" y="454" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="473" fill="#888">🔒</text>
+    <text x="1310" y="473" fill="#AAAACC" font-weight="600">secrets (stdlib)</text>
+    <text x="1520" y="473" fill="#555" text-anchor="end">Passwords</text>
+
+    <rect x="1270" y="486" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="505" fill="#888">📊</text>
+    <text x="1310" y="505" fill="#AAAACC" font-weight="600">logging (stdlib)</text>
+    <text x="1520" y="505" fill="#555" text-anchor="end">Logs</text>
+
+    <rect x="1270" y="518" width="276" height="28" rx="6" fill="#141428"/>
+    <text x="1290" y="537" fill="#888">🔧</text>
+    <text x="1310" y="537" fill="#AAAACC" font-weight="600">python-dotenv 1.2</text>
+    <text x="1520" y="537" fill="#555" text-anchor="end">.env</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- PIE -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <line x1="44" y1="880" x2="1556" y2="880" stroke="#FF5500" stroke-width="0.5" opacity="0.25"/>
+  <text x="800" y="892" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" fill="#3A3A5A" text-anchor="middle">
+    TIBI — Asistente Virtual MasOrange TV  ·  Hackathon MasOrange 2026  ·  Google ADK 2.10 + Claude Sonnet 4.5 + FastAPI
+  </text>
+
+</svg>
+</body>
+</html>

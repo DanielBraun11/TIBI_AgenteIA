@@ -1,0 +1,7 @@
+2026-10-21 13:05:43 | INFO     | tv_agent.csv_tools | [verificar_cliente] DNI=24942603T login=914942603
+2026-10-21 13:05:43 | INFO     | tv_agent.csv_tools | [verificar_cliente] Cliente ENCONTRADO: DNI=24942603T
+2026-10-21 13:05:48 | INFO     | tv_agent.csv_tools | [restablecer_contrasena] Iniciando restablecimiento para DNI=24942603T
+2026-10-21 13:05:48 | DEBUG    | tv_agent.csv_tools | [restablecer_contrasena] Fila actualizada en memoria DNI=24942603T
+2026-10-21 13:05:49 | INFO     | tv_agent.csv_tools | [restablecer_contrasena] CSV actualizado OK. DNI=24942603T
+2026-10-21 13:06:56 | INFO     | tv_agent.csv_tools | [comprobar_servicio] DNI=24942603T servicio=NETFLIX
+2026-10-21 13:06:56 | INFO     | tv_agent.csv_tools | [comprobar_servicio] Servicio NETFLIX ACTIVO para DNI=24942603T

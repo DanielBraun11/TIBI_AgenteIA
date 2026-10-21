@@ -1,0 +1,25 @@
+╔══════════════════════════════════════════════════════════════╗
+║      LLAMADA A PLATAFORMA EXCALIBUR — INCIDENCIA DE SERVICIO  ║
+╚══════════════════════════════════════════════════════════════╝
+
+  Ticket ID     : EXC-20260929-013C-NET
+  Timestamp     : 2026-09-29 13:00:51
+  Agente        : agente_servicios_vas (MasOrange TV)
+
+  ─── DATOS DEL CLIENTE ──────────────────────────────────────
+  DNI           : 16109013C
+  Login (Tfno)  : 936023439
+
+  ─── SERVICIO AFECTADO ──────────────────────────────────────
+  Servicio      : NETFLIX
+  Tipo incid.   : ACCESO / VALOR AÑADIDO
+
+  ─── RESULTADO ──────────────────────────────────────────────
+  Estado        : NOTIFICADO A EXCALIBUR
+  Acción        : Revisión y reactivación de acceso al servicio
+  SLA           : 2 horas (gestión prioritaria)
+
+  El cliente recibirá confirmación de resolución por SMS al
+  número 936023439 en un plazo máximo de 2 horas.
+
+══════════════════════════════════════════════════════════════

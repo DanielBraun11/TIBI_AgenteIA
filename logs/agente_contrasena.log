@@ -1,0 +1,4 @@
+2026-10-21 13:05:48 | DEBUG    | tv_agent.contrasena | ⚡ [TOOL CALL] restablecer_contrasena  args={'dni': '24942603T'}
+2026-10-21 13:05:49 | DEBUG    | tv_agent.contrasena | ✅ [TOOL DONE] restablecer_contrasena  result=CONTRASEÑA_RESTABLECIDA: La nueva contraseña del cliente con DNI=24942603T es: **3jg5wrlKYM**. El fichero CSV ha sido actualizado correctamente. Comunica esta contraseña al cliente y recuérdale que de
+2026-10-21 13:06:52 | DEBUG    | tv_agent.contrasena | ⚡ [TOOL CALL] transfer_to_agent  args={'agent_name': 'agente_servicios'}
+2026-10-21 13:06:52 | DEBUG    | tv_agent.contrasena | ✅ [TOOL DONE] transfer_to_agent  result=None

@@ -1,0 +1,11 @@
+2026-10-21 12:54:46 | INFO     | tv_agent.principal | ✅ Agentes MasOrange TV inicializados correctamente.
+2026-10-21 12:54:48 | INFO     | tv_agent.principal | 🟢 [SESSION] Sesión inicializada: ?
+2026-10-21 12:56:28 | INFO     | tv_agent.principal | ✅ Agentes MasOrange TV inicializados correctamente.
+2026-10-21 12:56:30 | INFO     | tv_agent.principal | 🟢 [SESSION] Sesión inicializada: ?
+2026-10-21 13:03:04 | INFO     | tv_agent.principal | ✅ Agentes MasOrange TV inicializados correctamente.
+2026-10-21 13:04:17 | INFO     | tv_agent.principal | 🟢 [SESSION] Sesión inicializada: ?
+2026-10-21 13:05:40 | INFO     | tv_agent.principal | 🟢 [SESSION] Sesión inicializada: ?
+2026-10-21 13:05:43 | DEBUG    | tv_agent.principal | ⚡ [TOOL CALL] verificar_cliente  args={'dni': '24942603T', 'login': '914942603'}
+2026-10-21 13:05:43 | DEBUG    | tv_agent.principal | ✅ [TOOL DONE] verificar_cliente  result=CLIENTE_VERIFICADO: El cliente con DNI=24942603T y teléfono 914942603 existe en el sistema y está correctamente identificado.
+2026-10-21 13:05:46 | DEBUG    | tv_agent.principal | ⚡ [TOOL CALL] transfer_to_agent  args={'agent_name': 'agente_contrasena'}
+2026-10-21 13:05:46 | DEBUG    | tv_agent.principal | ✅ [TOOL DONE] transfer_to_agent  result=None
